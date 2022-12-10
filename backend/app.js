@@ -9,6 +9,7 @@ import { router as userRouter } from './routes/users.js';
 import { router as cardRouter } from './routes/cards.js';
 import { celebrateBodyUser, celebrateBodyAuth } from './validators/users.js';
 import { NotFoundError } from './errors/index.js';
+import { requestLogger, errorLogger } from './middlewares/logger.js';
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -20,6 +21,8 @@ process.on('unhandledRejection', (err) => {
 
 mongoose.set('runValidators', true);
 mongoose.connect('mongodb://localhost:27017/mestodb');
+
+app.use(requestLogger);
 
 app.use(bodyParser.json());
 
@@ -33,6 +36,8 @@ app.use('/cards', cardRouter);
 app.all('/*', (req, res, next) => {
   next(new NotFoundError('Страница не найдена.'));
 });
+
+app.use(errorLogger);
 
 app.use(errors());
 
