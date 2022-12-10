@@ -1,0 +1,16 @@
+.form__input {
+  width: 100%;
+  font: 500 14px Inter, Arial, Helvetica, sans-serif;
+  padding: 10px 0;
+  margin-bottom: 20px;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  color: #fff;
+}
+
+.form__input::placeholder {
+  color: #ccc;
+  font-weight: 400;
+}

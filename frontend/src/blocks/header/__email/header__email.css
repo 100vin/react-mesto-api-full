@@ -1,0 +1,9 @@
+.header__email {
+  font-size: 18px;
+}
+
+@media screen and (max-width: 768px) {
+  .header__email {
+    font-size: 14px;
+  }
+}

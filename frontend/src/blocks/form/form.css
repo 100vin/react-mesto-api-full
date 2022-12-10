@@ -1,0 +1,17 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 358px;
+  flex: 1;
+  padding: 20px 11px 80px;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 768px) {
+  .form {
+    padding: 0 11px 40px;
+  }
+}

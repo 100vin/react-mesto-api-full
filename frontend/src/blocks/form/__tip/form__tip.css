@@ -1,0 +1,12 @@
+.form__tip {
+  min-height: 17px;
+  padding-top: 15px;
+  font-size: 14px;
+  color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+  .form__tip {
+    padding-top: 20px;
+  }
+}
