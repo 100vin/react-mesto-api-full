@@ -1,6 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import path from 'path';
 import cors from 'cors';
 import { constants } from 'http2';
 import { errors } from 'celebrate';
@@ -14,7 +16,14 @@ import { requestLogger, errorLogger } from './middlewares/logger.js';
 
 // const { PORT = 3000 } = process.env;
 const { PORT = 3001 } = process.env;
+
+const config = dotenv.config({
+  path: path.resolve(process.env.NODE_ENV === 'production' ? '.env' : '.env.common'),
+}).parsed;
+
 const app = express();
+
+app.set('config', config);
 
 process.on('unhandledRejection', (err) => {
   console.error(err);
@@ -32,6 +41,12 @@ app.use(cors({
 }));
 
 app.use(bodyParser.json());
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 app.post('/signin', celebrateBodyAuth, login);
 app.post('/signup', celebrateBodyUser, createUser);

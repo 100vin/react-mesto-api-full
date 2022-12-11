@@ -10,9 +10,10 @@ export const auth = (req, res, next) => {
 
   const token = authorization.replace(/^Bearer\s/i, '');
   let payload;
+  const { JWT_SECRET } = req.app.get('config');
 
   try {
-    payload = jwt.verify(token, 'some-secret-key');
+    payload = jwt.verify(token, JWT_SECRET);
   } catch (err) {
     next(new UnauthorizedError('Необходима авторизация.'));
   }
