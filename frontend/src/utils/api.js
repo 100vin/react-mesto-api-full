@@ -1,4 +1,4 @@
-import {apiToken, apiBaseUrl} from './utils.js';
+import { apiBaseUrl } from './utils.js';
 class Api {
   constructor(options) {
     this._baseUrl = options.baseUrl;
@@ -78,12 +78,18 @@ class Api {
     })
     .then(this._handleResponse);
   }
+
+  // Добавление токена
+  setToken(token) {
+    this._headers.authorization = token;
+  }
+
 }
 
 const api = new Api({
   baseUrl: apiBaseUrl,
   headers: {
-    authorization: apiToken,
+    authorization: '',
     'Content-Type': 'application/json'
   }
 });

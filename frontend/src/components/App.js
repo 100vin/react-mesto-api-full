@@ -95,7 +95,8 @@ function App() {
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    // const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some(i => i === currentUser._id);
     api.toggleLike(card._id, !isLiked)
       .then((newCard) => {
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
@@ -145,6 +146,8 @@ function App() {
       .then(res => {
         if (res.token) {
           localStorage.setItem('token', res.token);
+          // api.setToken(res.token);
+          api.setToken('Bearer ' + res.token);
           setIsLoggedIn(true);
           setUserEmail(userData.email);
           navigate('/');
@@ -168,11 +171,14 @@ function App() {
 
   function tokenCheck() {
     const token = localStorage.getItem('token');
+    // api.setToken(token);
+    api.setToken('Bearer ' + token);
     if (token) {
       auth.getContent(token)
         .then(res => {
           setIsLoggedIn(true);
-          setUserEmail(res.data.email);
+          // setUserEmail(res.data.email);
+          setUserEmail(res.email);
           navigate('/');
         })
         .catch(err => {

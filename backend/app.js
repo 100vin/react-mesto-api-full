@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
+import cors from 'cors';
 import { constants } from 'http2';
 import { errors } from 'celebrate';
 import { login, createUser } from './controllers/users.js';
@@ -11,7 +12,8 @@ import { celebrateBodyUser, celebrateBodyAuth } from './validators/users.js';
 import { NotFoundError } from './errors/index.js';
 import { requestLogger, errorLogger } from './middlewares/logger.js';
 
-const { PORT = 3000 } = process.env;
+// const { PORT = 3000 } = process.env;
+const { PORT = 3001 } = process.env;
 const app = express();
 
 process.on('unhandledRejection', (err) => {
@@ -23,6 +25,11 @@ mongoose.set('runValidators', true);
 mongoose.connect('mongodb://localhost:27017/mestodb');
 
 app.use(requestLogger);
+
+app.use(cors({
+  origin: '*',
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 
 app.use(bodyParser.json());
 
