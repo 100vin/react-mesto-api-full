@@ -14,8 +14,8 @@ import { celebrateBodyUser, celebrateBodyAuth } from './validators/users.js';
 import { NotFoundError } from './errors/index.js';
 import { requestLogger, errorLogger } from './middlewares/logger.js';
 
-// const { PORT = 3000 } = process.env;
-const { PORT = 3001 } = process.env;
+const { PORT = 3000 } = process.env;
+// const { PORT = 3001 } = process.env;
 
 const config = dotenv.config({
   path: path.resolve(process.env.NODE_ENV === 'production' ? '.env' : '.env.common'),
